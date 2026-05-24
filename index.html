@@ -1,520 +1,285 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PM Academy — Opportunities</title>
-  <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>PM Academy — Opportunities</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background:#f6f7fb;color:#323338;min-height:100vh;}
 
-    body {
-      font-family: "Figtree", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: #f6f7fb;
-      color: #323338;
-      min-height: 100vh;
-    }
+/* ── Top Nav ── */
+.topnav{background:#fff;height:50px;display:flex;align-items:center;padding:0 16px;border-bottom:1px solid #e6e9ef;gap:12px;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,0.06);}
+.logo{display:flex;align-items:center;gap:6px;font-size:20px;font-weight:800;color:#323338;letter-spacing:-0.5px;}
+.logo-dots{display:flex;gap:3px;margin-right:2px;}
+.logo-dot{width:9px;height:9px;border-radius:50%;}
+.topnav-sep{width:1px;height:24px;background:#e6e9ef;margin:0 6px;}
+.topnav-right{margin-left:auto;display:flex;align-items:center;gap:10px;}
+.invite-btn{background:#0073ea;color:#fff;border:none;border-radius:6px;padding:7px 14px;font-size:13px;font-weight:600;cursor:pointer;}
+.avatar{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,#6c5ce7,#a29bfe);display:flex;align-items:center;justify-content:center;color:#fff;font-size:13px;font-weight:700;}
 
-    /* ── Top Nav ── */
-    .topnav {
-      background: #1f2d3d;
-      height: 48px;
-      display: flex;
-      align-items: center;
-      padding: 0 20px;
-      gap: 12px;
-    }
+/* ── Page ── */
+.page{padding:0 28px 60px;}
 
-    .topnav-logo {
-      font-size: 18px;
-      font-weight: 800;
-      color: #fff;
-      letter-spacing: -0.5px;
-    }
+/* ── Board Header ── */
+.board-header{padding:24px 0 0;}
+.board-title{font-size:28px;font-weight:800;color:#323338;display:flex;align-items:center;gap:10px;}
+.header-actions{display:flex;align-items:center;gap:8px;margin-top:14px;margin-bottom:4px;}
+.hbtn{display:flex;align-items:center;gap:5px;padding:6px 12px;border-radius:6px;font-size:13px;font-weight:600;cursor:pointer;border:1px solid #e6e9ef;background:#fff;color:#323338;transition:background .12s;}
+.hbtn:hover{background:#f0f2f5;}
 
-    .topnav-logo span { color: #f65f5f; }
+/* ── Stats ── */
+.stats{display:flex;gap:10px;padding:16px 0 20px;flex-wrap:wrap;}
+.stat{background:#fff;border:1px solid #e6e9ef;border-radius:8px;padding:12px 18px;display:flex;align-items:center;gap:10px;box-shadow:0 1px 3px rgba(0,0,0,0.05);}
+.stat-dot{width:12px;height:12px;border-radius:3px;flex-shrink:0;}
+.stat-num{font-size:22px;font-weight:800;color:#323338;line-height:1;}
+.stat-lbl{font-size:11px;color:#676879;margin-top:2px;font-weight:500;}
 
-    .topnav-divider {
-      width: 1px;
-      height: 20px;
-      background: rgba(255,255,255,0.2);
-      margin: 0 4px;
-    }
+/* ── Group header ── */
+.board-section{margin-bottom:24px;}
+.group-header{display:flex;align-items:center;gap:8px;padding:8px 0 6px;}
+.group-name{font-size:14px;font-weight:700;}
+.group-count{background:#e6e9ef;color:#676879;font-size:11px;font-weight:700;padding:1px 7px;border-radius:12px;}
 
-    .topnav-title {
-      font-size: 13px;
-      color: rgba(255,255,255,0.75);
-      font-weight: 500;
-    }
+/* ── Table ── */
+.board-wrap{border-radius:0 8px 8px 8px;overflow:hidden;border:1px solid #e6e9ef;box-shadow:0 1px 6px rgba(0,0,0,0.06);}
+table{width:100%;border-collapse:collapse;font-size:13px;table-layout:fixed;}
 
-    /* ── Board Header ── */
-    .board-header {
-      padding: 24px 28px 0;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
+col.c-check  {width:40px;}
+col.c-inst   {width:22%;}
+col.c-lead   {width:11%;}
+col.c-role   {width:15%;}
+col.c-contact{width:14%;}
+col.c-status {width:130px;}
+col.c-comments{width:auto;}
 
-    .board-title {
-      font-size: 24px;
-      font-weight: 800;
-      color: #1f2d3d;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
+thead tr{background:#fff;border-bottom:2px solid #e6e9ef;}
+thead th{padding:9px 10px;text-align:left;font-size:11px;font-weight:700;color:#676879;text-transform:uppercase;letter-spacing:.5px;border-right:1px solid #f0f2f5;white-space:nowrap;}
+thead th:last-child{border-right:none;}
+thead th.th-check{border-left:4px solid transparent;}
 
-    .board-title .icon {
-      width: 32px;
-      height: 32px;
-      border-radius: 8px;
-      background: linear-gradient(135deg, #6c5ce7, #a29bfe);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 16px;
-    }
+tbody tr{border-bottom:1px solid #f0f2f5;transition:background .1s;}
+tbody tr:last-child{border-bottom:none;}
+tbody tr:hover{background:#f9fafb;}
 
-    .board-subtitle {
-      font-size: 13px;
-      color: #676879;
-      margin-top: 4px;
-    }
+td{padding:0;border-right:1px solid #f0f2f5;vertical-align:middle;height:42px;position:relative;}
+td:last-child{border-right:none;}
+td.td-check{width:40px;text-align:center;border-left:4px solid #0073ea;padding:0 8px;}
+input[type=checkbox]{width:14px;height:14px;accent-color:#0073ea;cursor:pointer;}
 
-    /* ── Stats Row ── */
-    .stats {
-      display: flex;
-      gap: 12px;
-      max-width: 1200px;
-      margin: 20px auto 0;
-      padding: 0 28px;
-      flex-wrap: wrap;
-    }
+/* ── Editable cells ── */
+.cell-inner{padding:8px 10px;min-height:42px;display:flex;align-items:center;cursor:text;line-height:1.4;word-break:break-word;outline:none;}
+.cell-inner:focus{box-shadow:inset 0 0 0 2px #0073ea;background:#fff;}
+.cell-inner[contenteditable=true]:empty:before{content:attr(data-placeholder);color:#c5c7d0;}
 
-    .stat-pill {
-      background: #fff;
-      border: 1px solid #e6e9ef;
-      border-radius: 8px;
-      padding: 10px 18px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-    }
+td.cell-institute .cell-inner{font-weight:700;color:#323338;}
+td.cell-lead .cell-inner{font-weight:600;color:#323338;}
+td.cell-role .cell-inner{color:#676879;font-size:12px;}
+td.cell-contact .cell-inner{flex-direction:column;align-items:flex-start;gap:2px;}
+.contact-email{color:#0073ea;font-size:12px;outline:none;}
+.contact-email:focus{text-decoration:underline;}
+.contact-channel{color:#676879;font-size:11px;outline:none;}
+td.cell-comments .cell-inner{color:#676879;font-size:12px;line-height:1.5;}
 
-    .stat-dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      flex-shrink: 0;
-    }
+/* ── Status cell — full Monday-style colored block ── */
+td.td-status{padding:0;cursor:pointer;}
+.status-cell{height:42px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#fff;text-transform:uppercase;letter-spacing:.4px;transition:filter .15s;white-space:nowrap;padding:0 4px;text-align:center;}
+.status-cell:hover{filter:brightness(.88);}
+.s-not-contacted{background:#c5c7d0;color:#323338;}
+.s-contacted    {background:#579bfc;}
+.s-in-discussion{background:#fdab3d;}
+.s-proposal-sent{background:#a25ddc;}
+.s-waiting      {background:#ff642e;}
+.s-won          {background:#00c875;}
+.s-lost         {background:#e2445c;}
 
-    .stat-pill .num {
-      font-size: 18px;
-      font-weight: 800;
-      color: #1f2d3d;
-      line-height: 1;
-    }
+/* ── Status Picker ── */
+.status-picker{position:fixed;z-index:999;background:#fff;border-radius:8px;box-shadow:0 8px 32px rgba(0,0,0,0.18);padding:6px;min-width:190px;display:none;}
+.status-picker.open{display:block;}
+.sp-title{font-size:11px;font-weight:700;color:#676879;text-transform:uppercase;letter-spacing:.5px;padding:6px 10px 4px;}
+.status-option{display:flex;align-items:center;gap:10px;padding:0;border-radius:6px;cursor:pointer;font-size:12px;font-weight:700;overflow:hidden;margin-bottom:3px;}
+.status-option:last-child{margin-bottom:0;}
+.status-swatch{width:100%;padding:8px 14px;display:flex;align-items:center;gap:8px;border-radius:6px;transition:filter .15s;}
+.status-swatch:hover{filter:brightness(.9);}
+.status-dot{width:10px;height:10px;border-radius:2px;background:rgba(0,0,0,0.2);flex-shrink:0;}
 
-    .stat-pill .lbl {
-      font-size: 12px;
-      color: #676879;
-      margin-top: 1px;
-    }
+/* ── Add row ── */
+.add-row td{background:#fff;height:36px;}
+.add-label{display:flex;align-items:center;gap:6px;padding:0 10px;font-size:13px;color:#676879;height:36px;}
+.add-row td.td-check{border-left:4px solid transparent;}
 
-    /* ── Toolbar ── */
-    .toolbar {
-      max-width: 1200px;
-      margin: 18px auto 0;
-      padding: 0 28px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .btn {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      padding: 7px 14px;
-      border-radius: 6px;
-      font-size: 13px;
-      font-weight: 600;
-      cursor: pointer;
-      border: none;
-      transition: filter 0.15s;
-    }
-
-    .btn:hover { filter: brightness(0.93); }
-
-    .btn-primary {
-      background: #0073ea;
-      color: #fff;
-    }
-
-    .btn-ghost {
-      background: transparent;
-      color: #676879;
-      border: 1px solid #e6e9ef;
-    }
-
-    /* ── Board Table ── */
-    .board-wrap {
-      max-width: 1200px;
-      margin: 16px auto 40px;
-      padding: 0 28px;
-    }
-
-    .group-label {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      padding: 10px 0 6px;
-      font-size: 13px;
-      font-weight: 700;
-      color: #323338;
-    }
-
-    .group-bar {
-      width: 6px;
-      height: 18px;
-      border-radius: 3px;
-      background: #0073ea;
-    }
-
-    .group-count {
-      background: #e6e9ef;
-      color: #676879;
-      font-size: 11px;
-      font-weight: 700;
-      padding: 1px 7px;
-      border-radius: 20px;
-      margin-left: 2px;
-    }
-
-    .board-table-wrap {
-      border-radius: 8px;
-      overflow: hidden;
-      border: 1px solid #e6e9ef;
-      box-shadow: 0 1px 6px rgba(0,0,0,0.06);
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 13px;
-      background: #fff;
-    }
-
-    thead th {
-      background: #f5f6f8;
-      border-bottom: 1px solid #e6e9ef;
-      border-right: 1px solid #e6e9ef;
-      padding: 9px 14px;
-      text-align: left;
-      font-size: 11px;
-      font-weight: 700;
-      color: #676879;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      white-space: nowrap;
-      user-select: none;
-    }
-
-    thead th:last-child { border-right: none; }
-
-    thead th.th-check {
-      width: 36px;
-      padding: 9px 10px;
-      text-align: center;
-      border-left: 4px solid transparent;
-    }
-
-    tbody tr {
-      border-bottom: 1px solid #f1f2f6;
-      transition: background 0.12s;
-    }
-
-    tbody tr:last-child { border-bottom: none; }
-
-    tbody tr:hover { background: #f9fafb; }
-
-    td {
-      padding: 12px 14px;
-      border-right: 1px solid #f1f2f6;
-      vertical-align: middle;
-    }
-
-    td:last-child { border-right: none; }
-
-    td.td-check {
-      width: 36px;
-      text-align: center;
-      padding: 0 10px;
-      border-left: 4px solid #0073ea;
-    }
-
-    input[type="checkbox"] {
-      width: 14px;
-      height: 14px;
-      accent-color: #0073ea;
-      cursor: pointer;
-    }
-
-    .cell-institute {
-      font-weight: 700;
-      color: #323338;
-      font-size: 13px;
-      min-width: 180px;
-    }
-
-    .cell-lead {
-      font-weight: 600;
-      color: #323338;
-      white-space: nowrap;
-    }
-
-    .cell-role {
-      font-size: 12px;
-      color: #676879;
-      min-width: 160px;
-    }
-
-    .cell-contact {
-      font-size: 13px;
-      color: #323338;
-    }
-
-    .cell-contact a {
-      color: #0073ea;
-      text-decoration: none;
-    }
-
-    .cell-contact a:hover { text-decoration: underline; }
-
-    .contact-channel {
-      font-size: 11px;
-      color: #676879;
-      margin-top: 2px;
-      display: flex;
-      align-items: center;
-      gap: 4px;
-    }
-
-    .cell-comments {
-      font-size: 12px;
-      color: #676879;
-      max-width: 220px;
-      line-height: 1.5;
-    }
-
-    /* ── Status Badge (Monday-style pill) ── */
-    .status-badge {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 4px 12px;
-      border-radius: 4px;
-      font-size: 11px;
-      font-weight: 700;
-      white-space: nowrap;
-      min-width: 100px;
-      text-align: center;
-    }
-
-    .s-not-contacted  { background: #e2e5e9; color: #676879; }
-    .s-contacted      { background: #cce5ff; color: #0057b8; }
-    .s-in-discussion  { background: #fef0cd; color: #8b6900; }
-    .s-proposal-sent  { background: #e8d5fb; color: #6b21a8; }
-    .s-waiting        { background: #ffe4cc; color: #9a3412; }
-    .s-won            { background: #c8f7c5; color: #166534; }
-    .s-lost           { background: #ffd6d6; color: #991b1b; }
-
-    /* ── Add row placeholder ── */
-    .add-row {
-      background: #fff;
-      border-top: 1px solid #e6e9ef;
-    }
-
-    .add-row td {
-      padding: 10px 14px;
-      font-size: 13px;
-      color: #adb5bd;
-      font-weight: 500;
-      cursor: default;
-    }
-
-    .add-row td:first-child {
-      border-left: 4px solid transparent;
-    }
-
-    /* ── Footer ── */
-    footer {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 28px 24px;
-      font-size: 11px;
-      color: #adb5bd;
-      text-align: right;
-    }
-  </style>
+/* ── Toast ── */
+.save-toast{position:fixed;bottom:24px;right:24px;background:#323338;color:#fff;padding:10px 18px;border-radius:8px;font-size:13px;font-weight:600;opacity:0;transition:opacity .3s;z-index:200;pointer-events:none;}
+.save-toast.show{opacity:1;}
+</style>
 </head>
 <body>
 
-<!-- Top Nav -->
 <div class="topnav">
-  <div class="topnav-logo">PM<span>.</span>Academy</div>
-  <div class="topnav-divider"></div>
-  <div class="topnav-title">Opportunities Board</div>
-</div>
-
-<!-- Board Header -->
-<div class="board-header">
-  <div class="board-title">
-    <div class="icon">🎯</div>
-    Outreach Tracker
+  <div class="logo">
+    <div class="logo-dots">
+      <div class="logo-dot" style="background:#ff3d57;"></div>
+      <div class="logo-dot" style="background:#ff7b3d;"></div>
+      <div class="logo-dot" style="background:#ffc93d;"></div>
+    </div>
+    PM Academy
   </div>
-  <div class="board-subtitle">Teaching &amp; HealthTech product opportunities · Updated via Claude Code</div>
+  <div class="topnav-sep"></div>
+  <span style="font-size:13px;color:#676879;font-weight:500;">Opportunities</span>
+  <div class="topnav-right">
+    <button class="invite-btn">+ Add via Claude Code</button>
+    <div class="avatar">RD</div>
+  </div>
 </div>
 
-<!-- Stats -->
-<div class="stats">
-  <div class="stat-pill">
-    <div class="stat-dot" style="background:#adb5bd;"></div>
-    <div>
-      <div class="num" id="stat-total">0</div>
-      <div class="lbl">Total Leads</div>
+<div class="page">
+  <div class="board-header">
+    <div class="board-title">🎯 Outreach Tracker</div>
+    <div class="header-actions">
+      <button class="hbtn">🔍 Search</button>
+      <button class="hbtn">⚡ Filter</button>
+      <button class="hbtn">↕ Sort</button>
     </div>
   </div>
-  <div class="stat-pill">
-    <div class="stat-dot" style="background:#0073ea;"></div>
-    <div>
-      <div class="num" id="stat-contacted">0</div>
-      <div class="lbl">Contacted</div>
+
+  <div class="stats">
+    <div class="stat"><div class="stat-dot" style="background:#c5c7d0;"></div><div><div class="stat-num" id="s-total">0</div><div class="stat-lbl">Total Leads</div></div></div>
+    <div class="stat"><div class="stat-dot" style="background:#579bfc;"></div><div><div class="stat-num" id="s-contacted">0</div><div class="stat-lbl">Contacted</div></div></div>
+    <div class="stat"><div class="stat-dot" style="background:#fdab3d;"></div><div><div class="stat-num" id="s-active">0</div><div class="stat-lbl">In Progress</div></div></div>
+    <div class="stat"><div class="stat-dot" style="background:#00c875;"></div><div><div class="stat-num" id="s-won">0</div><div class="stat-lbl">Won</div></div></div>
+  </div>
+
+  <div class="board-section">
+    <div class="group-header">
+      <span style="color:#676879;font-size:12px;">▼</span>
+      <span class="group-name" style="color:#0073ea;">All Opportunities</span>
+      <span class="group-count" id="g-count">0</span>
+    </div>
+    <div class="board-wrap">
+      <table>
+        <colgroup>
+          <col class="c-check"/><col class="c-inst"/><col class="c-lead"/>
+          <col class="c-role"/><col class="c-contact"/><col class="c-status"/><col class="c-comments"/>
+        </colgroup>
+        <thead>
+          <tr>
+            <th class="th-check"><input type="checkbox" id="chk-all"/></th>
+            <th>Institute</th><th>Lead</th><th>Role</th>
+            <th>Contact</th><th style="text-align:center;">Status</th><th>Comments</th>
+          </tr>
+        </thead>
+        <tbody id="tbody"></tbody>
+      </table>
     </div>
   </div>
-  <div class="stat-pill">
-    <div class="stat-dot" style="background:#f7b731;"></div>
-    <div>
-      <div class="num" id="stat-active">0</div>
-      <div class="lbl">In Discussion / Proposal</div>
-    </div>
-  </div>
-  <div class="stat-pill">
-    <div class="stat-dot" style="background:#00c875;"></div>
-    <div>
-      <div class="num" id="stat-won">0</div>
-      <div class="lbl">Won</div>
-    </div>
-  </div>
+
+  <div style="font-size:11px;color:#c5c7d0;text-align:right;margin-top:6px;" id="footer"></div>
 </div>
 
-<!-- Toolbar -->
-<div class="toolbar">
-  <button class="btn btn-ghost" style="cursor:default;">＋ New Item — add via Claude Code</button>
+<!-- Status Picker -->
+<div class="status-picker" id="picker">
+  <div class="sp-title">Change Status</div>
+  <div class="status-option" data-s="Not Contacted"><div class="status-swatch" style="background:#c5c7d0;color:#323338;"><span class="status-dot"></span>Not Contacted</div></div>
+  <div class="status-option" data-s="Contacted"><div class="status-swatch" style="background:#579bfc;color:#fff;"><span class="status-dot"></span>Contacted</div></div>
+  <div class="status-option" data-s="In Discussion"><div class="status-swatch" style="background:#fdab3d;color:#fff;"><span class="status-dot"></span>In Discussion</div></div>
+  <div class="status-option" data-s="Proposal Sent"><div class="status-swatch" style="background:#a25ddc;color:#fff;"><span class="status-dot"></span>Proposal Sent</div></div>
+  <div class="status-option" data-s="Waiting"><div class="status-swatch" style="background:#ff642e;color:#fff;"><span class="status-dot"></span>Waiting</div></div>
+  <div class="status-option" data-s="Won"><div class="status-swatch" style="background:#00c875;color:#fff;"><span class="status-dot"></span>Won ✓</div></div>
+  <div class="status-option" data-s="Lost"><div class="status-swatch" style="background:#e2445c;color:#fff;"><span class="status-dot"></span>Lost</div></div>
 </div>
 
-<!-- Board -->
-<div class="board-wrap">
-  <div class="group-label">
-    <div class="group-bar"></div>
-    All Opportunities
-    <span class="group-count" id="group-count">0</span>
-  </div>
-
-  <div class="board-table-wrap">
-    <table>
-      <thead>
-        <tr>
-          <th class="th-check"></th>
-          <th>Institute</th>
-          <th>Lead</th>
-          <th>Role</th>
-          <th>Contact</th>
-          <th>Status</th>
-          <th>Comments</th>
-        </tr>
-      </thead>
-      <tbody id="table-body"></tbody>
-    </table>
-  </div>
-</div>
-
-<footer id="footer-date"></footer>
+<div class="save-toast" id="toast">✓ Saved</div>
 
 <script>
-  const opportunities = [
-    {
-      institute: "Afeka Tel Aviv Academic College of Engineering",
-      lead: "Sarah Naftali",
-      role: "Head of School of Medical Engineering",
-      email: "SaraN@afeka.ac.il",
-      channel: "LinkedIn · 24-5-26",
-      status: "Contacted",
-      comments: "Reached via LinkedIn 24-5-26. Rejected via email a few years ago."
-    },
-    {
-      institute: "The Institute of Innovation & Medicine of the Future",
-      lead: "Maya Schneider",
-      role: "Head of AI Training Programs for Physicians",
-      email: null,
-      channel: "LinkedIn",
-      status: "Contacted",
-      comments: "Sent connection request. Institute does courses for physicians."
-    }
-  ];
+const DEFAULTS = [
+  {institute:"Afeka Tel Aviv Academic College of Engineering",lead:"Sarah Naftali",role:"Head of School of Medical Engineering",email:"SaraN@afeka.ac.il",channel:"LinkedIn · 24-5-26",status:"Contacted",comments:"Reached via LinkedIn 24-5-26. Rejected via email a few years ago."},
+  {institute:"The Institute of Innovation & Medicine of the Future",lead:"Maya Schneider",role:"Head of AI Training Programs for Physicians",email:"",channel:"LinkedIn",status:"Contacted",comments:"Sent connection request. Institute does courses for physicians."}
+];
 
-  const statusMeta = {
-    "Not Contacted":  { cls: "s-not-contacted",  label: "Not Contacted" },
-    "Contacted":      { cls: "s-contacted",       label: "Contacted" },
-    "In Discussion":  { cls: "s-in-discussion",   label: "In Discussion" },
-    "Proposal Sent":  { cls: "s-proposal-sent",   label: "Proposal Sent" },
-    "Waiting":        { cls: "s-waiting",          label: "Waiting" },
-    "Won":            { cls: "s-won",              label: "Won ✓" },
-    "Lost":           { cls: "s-lost",             label: "Lost" }
-  };
+const SC = {"Not Contacted":"s-not-contacted","Contacted":"s-contacted","In Discussion":"s-in-discussion","Proposal Sent":"s-proposal-sent","Waiting":"s-waiting","Won":"s-won","Lost":"s-lost"};
 
-  function render() {
-    const tbody = document.getElementById("table-body");
+function load(){try{const s=localStorage.getItem("pm-opps");if(s)return JSON.parse(s);}catch(e){}return JSON.parse(JSON.stringify(DEFAULTS));}
+let data=load();
 
-    tbody.innerHTML = opportunities.map((o, i) => {
-      const sm = statusMeta[o.status] || statusMeta["Not Contacted"];
-      const emailHtml = o.email
-        ? `<a href="mailto:${o.email}">${o.email}</a>`
-        : `<span style="color:#adb5bd">—</span>`;
-      return `
-        <tr>
-          <td class="td-check"><input type="checkbox" /></td>
-          <td class="cell-institute">${o.institute}</td>
-          <td class="cell-lead">${o.lead}</td>
-          <td class="cell-role">${o.role || "—"}</td>
-          <td class="cell-contact">
-            ${emailHtml}
-            <div class="contact-channel">
-              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-              ${o.channel}
-            </div>
-          </td>
-          <td><span class="status-badge ${sm.cls}">${sm.label}</span></td>
-          <td class="cell-comments">${o.comments || "—"}</td>
-        </tr>`;
-    }).join("") + `
-      <tr class="add-row">
-        <td></td>
-        <td colspan="6">＋ Add via Claude Code</td>
-      </tr>`;
+function save(){localStorage.setItem("pm-opps",JSON.stringify(data));toast();}
+function toast(){const t=document.getElementById("toast");t.classList.add("show");clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove("show"),1800);}
 
-    document.getElementById("stat-total").textContent     = opportunities.length;
-    document.getElementById("group-count").textContent    = opportunities.length;
-    document.getElementById("stat-contacted").textContent =
-      opportunities.filter(o => o.status === "Contacted").length;
-    document.getElementById("stat-active").textContent    =
-      opportunities.filter(o => ["In Discussion","Proposal Sent"].includes(o.status)).length;
-    document.getElementById("stat-won").textContent       =
-      opportunities.filter(o => o.status === "Won").length;
+function esc(s){return s?String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"):""; }
 
-    document.getElementById("footer-date").textContent = "Last updated: 2026-05-24";
-  }
+function render(){
+  const tb=document.getElementById("tbody");
+  tb.innerHTML=data.map((r,i)=>`
+    <tr>
+      <td class="td-check"><input type="checkbox"/></td>
+      <td class="cell-institute"><div class="cell-inner" contenteditable="true" data-f="institute" data-i="${i}" data-placeholder="Institute name">${esc(r.institute)}</div></td>
+      <td class="cell-lead"><div class="cell-inner" contenteditable="true" data-f="lead" data-i="${i}" data-placeholder="Name">${esc(r.lead)}</div></td>
+      <td class="cell-role"><div class="cell-inner" contenteditable="true" data-f="role" data-i="${i}" data-placeholder="Role / Title">${esc(r.role)}</div></td>
+      <td class="cell-contact">
+        <div class="cell-inner">
+          <span class="contact-email" contenteditable="true" data-f="email" data-i="${i}" data-placeholder="email@domain.com">${esc(r.email)}</span>
+          <span class="contact-channel" contenteditable="true" data-f="channel" data-i="${i}" data-placeholder="Channel (LinkedIn, Email…)">${esc(r.channel)}</span>
+        </div>
+      </td>
+      <td class="td-status" data-i="${i}"><div class="status-cell ${SC[r.status]||'s-not-contacted'}">${r.status}</div></td>
+      <td class="cell-comments"><div class="cell-inner" contenteditable="true" data-f="comments" data-i="${i}" data-placeholder="Notes, next steps…">${esc(r.comments)}</div></td>
+    </tr>`).join("")+`
+    <tr class="add-row">
+      <td class="td-check"></td>
+      <td colspan="6"><div class="add-label">＋ Add item via Claude Code</div></td>
+    </tr>`;
 
-  render();
+  document.getElementById("s-total").textContent=data.length;
+  document.getElementById("g-count").textContent=data.length;
+  document.getElementById("s-contacted").textContent=data.filter(r=>r.status==="Contacted").length;
+  document.getElementById("s-active").textContent=data.filter(r=>["In Discussion","Proposal Sent"].includes(r.status)).length;
+  document.getElementById("s-won").textContent=data.filter(r=>r.status==="Won").length;
+  document.getElementById("footer").textContent="Last updated: 2026-05-24 · Click any cell to edit · Status changes auto-save";
+}
+
+// Inline edit save
+document.getElementById("tbody").addEventListener("blur",function(e){
+  const el=e.target.closest("[data-f]");
+  if(!el)return;
+  const i=parseInt(el.dataset.i),f=el.dataset.f,v=el.textContent.trim();
+  if(data[i][f]!==v){data[i][f]=v;save();}
+},true);
+
+document.getElementById("tbody").addEventListener("keydown",function(e){
+  if(e.key==="Enter"&&e.target.closest("[data-f]")){e.preventDefault();e.target.blur();}
+});
+
+// Status picker
+const picker=document.getElementById("picker");
+let pickerIdx=null;
+
+document.getElementById("tbody").addEventListener("click",function(e){
+  const td=e.target.closest(".td-status");
+  if(!td)return;
+  pickerIdx=parseInt(td.dataset.i);
+  const r=td.getBoundingClientRect();
+  picker.style.top=(r.bottom+4)+"px";
+  picker.style.left=r.left+"px";
+  picker.classList.add("open");
+  e.stopPropagation();
+});
+
+picker.addEventListener("click",function(e){
+  const opt=e.target.closest("[data-s]");
+  if(!opt||pickerIdx===null)return;
+  data[pickerIdx].status=opt.dataset.s;
+  save();render();
+  picker.classList.remove("open");pickerIdx=null;
+});
+
+document.addEventListener("click",function(e){
+  if(!picker.contains(e.target)){picker.classList.remove("open");pickerIdx=null;}
+});
+
+document.getElementById("chk-all").addEventListener("change",function(){
+  document.querySelectorAll("#tbody input[type=checkbox]").forEach(c=>c.checked=this.checked);
+});
+
+render();
 </script>
 </body>
 </html>
