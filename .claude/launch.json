@@ -1,0 +1,12 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "opportunities-dashboard",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["serve", "-l", "7823", "--single", "."],
+      "startPath": "/dashboard.html",
+      "port": 7823
+    }
+  ]
+}

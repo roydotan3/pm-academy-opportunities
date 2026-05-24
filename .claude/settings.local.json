@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__Claude_Preview__preview_start",
+      "PowerShell(@\\(\"python3\",\"py\",\"node\",\"npx\"\\) | ForEach-Object { $p = \\(Get-Command $_ -ErrorAction SilentlyContinue\\); if \\($p\\) { \"$_ -> $\\($p.Source\\)\" } else { \"$_ -> NOT FOUND\" } })",
+      "PowerShell(gh --version)",
+      "PowerShell(gh auth status)",
+      "PowerShell($env:PATH = [System.Environment]::GetEnvironmentVariable\\(\"PATH\",\"Machine\"\\) + \";\" + [System.Environment]::GetEnvironmentVariable\\(\"PATH\",\"User\"\\); gh --version)"
+    ]
+  }
+}
