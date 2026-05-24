@@ -640,10 +640,24 @@ const SC_MAP = {
   "Lost":"s-lost"
 };
 
-function loadData(){ try{ const s=localStorage.getItem("pm-opps-v2"); if(s) return JSON.parse(s); }catch(e){} return JSON.parse(JSON.stringify(DEFAULTS)); }
+const STORAGE_KEY = "pm-opps-v3"; // bump this whenever Claude adds new rows
+function loadData(){
+  try{
+    const s=localStorage.getItem(STORAGE_KEY);
+    if(s){
+      const saved=JSON.parse(s);
+      // Merge: keep manual edits for existing rows, append any new rows from DEFAULTS
+      const merged = DEFAULTS.map((def,i) => saved[i] ? {...def, status:saved[i].status, comments:saved[i].comments} : def);
+      // Append any extra rows from saved that aren't in DEFAULTS
+      if(saved.length > DEFAULTS.length) merged.push(...saved.slice(DEFAULTS.length));
+      return merged;
+    }
+  }catch(e){}
+  return JSON.parse(JSON.stringify(DEFAULTS));
+}
 let data = loadData();
 
-function persist(){ localStorage.setItem("pm-opps-v2",JSON.stringify(data)); showToast(); }
+function persist(){ localStorage.setItem(STORAGE_KEY,JSON.stringify(data)); showToast(); }
 
 function showToast(){
   const t=document.getElementById("toast");
