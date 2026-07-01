@@ -625,9 +625,10 @@ td.td-status { padding: 0; cursor: pointer; }
 <script>
 /* ══ Data ══ */
 const DEFAULTS = [
-  { institute:"Afeka Tel Aviv Academic College of Engineering", lead:"Sarah Naftali", role:"Head of School of Medical Engineering", email:"SaraN@afeka.ac.il", channel:"LinkedIn · 24-5-26", status:"Contacted", comments:"Reached via LinkedIn 24-5-26. Rejected via email a few years ago." },
-  { institute:"The Institute of Innovation & Medicine of the Future", lead:"Maya Schneider", role:"Head of AI Training Programs for Physicians", email:"", channel:"LinkedIn", status:"Contacted", comments:"Sent connection request. Institute does courses for physicians." },
-  { institute:"Bar Ilan University", lead:"Inna Mannova", role:"Program Lead of Product Management, BIU", email:"", channel:"LinkedIn", status:"Contacted", comments:"Had prior contact via LinkedIn. New HealthTech program launched — good timing to re-engage." }
+  { institute:"Afeka Tel Aviv Academic College of Engineering", lead:"Sarah Naftali", role:"Head of School of Medical Engineering", email:"SaraN@afeka.ac.il", channel:"LinkedIn · 24-5-26", status:"Lost", comments:"Reached via LinkedIn 24-5-26. Rejected via email a few years ago." },
+  { institute:"The Institute of Innovation & Medicine of the Future", lead:"Maya Schneider", role:"Head of AI Training Programs for Physicians", email:"", channel:"LinkedIn", status:"Lost", comments:"Sent connection request. Institute does courses for physicians." },
+  { institute:"Bar Ilan University", lead:"Inna Mannova", role:"Program Lead of Product Management, BIU", email:"", channel:"LinkedIn", status:"Won", comments:"Had prior contact via LinkedIn. New HealthTech program launched — good timing to re-engage." },
+  { institute:"Peres Academic Center", lead:"Shifra Shvartz", role:"ראש החוג לתואר שני במנהל מערכות בריאות", email:"Shifishvarts4@gmail.com", channel:"Email · 1-7-26", status:"Contacted", comments:"Email 1-7-26." }
 ];
 
 const SC_MAP = {
@@ -640,7 +641,7 @@ const SC_MAP = {
   "Lost":"s-lost"
 };
 
-const STORAGE_KEY = "pm-opps-v3"; // bump this whenever Claude adds new rows
+const STORAGE_KEY = "pm-opps-v4"; // bump to force browsers to reload fresh DEFAULTS (discards stale localStorage overlay)
 function loadData(){
   try{
     const s=localStorage.getItem(STORAGE_KEY);
@@ -726,7 +727,7 @@ function render(){
 
   renderStats();
   document.getElementById("footer").innerHTML =
-    `Last updated: 2026-05-24 &nbsp;·&nbsp; Click any cell to edit &nbsp;·&nbsp; Click status to change &nbsp;·&nbsp;
+    `Last updated: 2026-07-01 &nbsp;·&nbsp; Click any cell to edit &nbsp;·&nbsp; Click status to change &nbsp;·&nbsp;
      <a href="https://github.com/roydotan3/pm-academy-opportunities" target="_blank">View source ↗</a>`;
 }
 
