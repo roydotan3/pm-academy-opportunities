@@ -587,40 +587,6 @@ td.td-status { padding: 0; cursor: pointer; }
   <div class="board-footer" id="footer"></div>
 </div>
 
-<!-- Status Picker -->
-<div class="spicker" id="spicker">
-  <div class="sp-head">Change Status</div>
-  <div class="sp-opt" data-s="Not Contacted">
-    <div class="sp-swatch s-none" style="background:var(--s-none);">Not Contacted</div>
-    <span class="sp-check">✓</span>
-  </div>
-  <div class="sp-opt" data-s="Contacted">
-    <div class="sp-swatch" style="background:var(--s-contact);">Contacted</div>
-    <span class="sp-check">✓</span>
-  </div>
-  <div class="sp-opt" data-s="In Discussion">
-    <div class="sp-swatch" style="background:var(--s-discuss);">In Discussion</div>
-    <span class="sp-check">✓</span>
-  </div>
-  <div class="sp-opt" data-s="Proposal Sent">
-    <div class="sp-swatch" style="background:var(--s-proposal);">Proposal Sent</div>
-    <span class="sp-check">✓</span>
-  </div>
-  <div class="sp-opt" data-s="Waiting">
-    <div class="sp-swatch" style="background:var(--s-waiting);">Waiting</div>
-    <span class="sp-check">✓</span>
-  </div>
-  <div class="sp-opt" data-s="Won">
-    <div class="sp-swatch" style="background:var(--s-won);">Won ✓</div>
-    <span class="sp-check">✓</span>
-  </div>
-  <div class="sp-opt" data-s="Lost">
-    <div class="sp-swatch" style="background:var(--s-lost);">Lost</div>
-    <span class="sp-check">✓</span>
-  </div>
-</div>
-
-<div class="toast" id="toast"><span class="toast-dot"></span> Saved</div>
 
 <script>
 /* ══ Data ══ */
@@ -641,31 +607,10 @@ const SC_MAP = {
   "Lost":"s-lost"
 };
 
-const STORAGE_KEY = "pm-opps-v4"; // bump to force browsers to reload fresh DEFAULTS (discards stale localStorage overlay)
-function loadData(){
-  try{
-    const s=localStorage.getItem(STORAGE_KEY);
-    if(s){
-      const saved=JSON.parse(s);
-      // Merge: keep manual edits for existing rows, append any new rows from DEFAULTS
-      const merged = DEFAULTS.map((def,i) => saved[i] ? {...def, status:saved[i].status, comments:saved[i].comments} : def);
-      // Append any extra rows from saved that aren't in DEFAULTS
-      if(saved.length > DEFAULTS.length) merged.push(...saved.slice(DEFAULTS.length));
-      return merged;
-    }
-  }catch(e){}
-  return JSON.parse(JSON.stringify(DEFAULTS));
-}
-let data = loadData();
-
-function persist(){ localStorage.setItem(STORAGE_KEY,JSON.stringify(data)); showToast(); }
-
-function showToast(){
-  const t=document.getElementById("toast");
-  t.classList.add("show");
-  clearTimeout(t._t);
-  t._t = setTimeout(()=>t.classList.remove("show"), 1800);
-}
+/* Single source of truth: the DEFAULTS array above.
+   Edits are made in code (via Claude Code) and go live on push —
+   no browser storage, no merge, no caching surprises. */
+let data = DEFAULTS;
 
 function esc(s){ return s?String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"):""; }
 
@@ -694,30 +639,30 @@ function render(){
       <td class="td-check"><input type="checkbox"/></td>
 
       <td class="td-name">
-        <div class="cell-edit" contenteditable="true" data-f="institute" data-i="${i}" data-ph="Institute name…">${esc(r.institute)}</div>
+        <div class="cell-edit">${esc(r.institute)}</div>
       </td>
 
       <td class="td-lead">
-        <div class="cell-edit" contenteditable="true" data-f="lead" data-i="${i}" data-ph="Name">${esc(r.lead)}</div>
+        <div class="cell-edit">${esc(r.lead)}</div>
       </td>
 
       <td class="td-role">
-        <div class="cell-edit" contenteditable="true" data-f="role" data-i="${i}" data-ph="Title / Role">${esc(r.role)}</div>
+        <div class="cell-edit">${esc(r.role)}</div>
       </td>
 
       <td class="td-contact">
         <div class="cell-edit" style="flex-direction:column;align-items:flex-start;gap:3px;">
-          <span class="c-email" contenteditable="true" data-f="email" data-i="${i}" data-ph="email@…">${esc(r.email)}</span>
-          <span class="c-channel" contenteditable="true" data-f="channel" data-i="${i}" data-ph="Channel">${esc(r.channel)}</span>
+          <span class="c-email">${esc(r.email)}</span>
+          <span class="c-channel">${esc(r.channel)}</span>
         </div>
       </td>
 
-      <td class="td-status" data-i="${i}">
+      <td class="td-status">
         <div class="status-cell ${SC_MAP[r.status]||'s-none'}">${r.status}</div>
       </td>
 
       <td class="td-comments">
-        <div class="cell-edit" contenteditable="true" data-f="comments" data-i="${i}" data-ph="Notes, next steps…">${esc(r.comments)}</div>
+        <div class="cell-edit">${esc(r.comments)}</div>
       </td>
     </tr>`).join("") + `
     <tr class="add-row">
@@ -727,51 +672,9 @@ function render(){
 
   renderStats();
   document.getElementById("footer").innerHTML =
-    `Last updated: 2026-07-01 &nbsp;·&nbsp; Click any cell to edit &nbsp;·&nbsp; Click status to change &nbsp;·&nbsp;
+    `Last updated: 2026-07-01 &nbsp;·&nbsp; Maintained via Claude Code &nbsp;·&nbsp;
      <a href="https://github.com/roydotan3/pm-academy-opportunities" target="_blank">View source ↗</a>`;
 }
-
-/* ══ Inline edit ══ */
-document.getElementById("tbody").addEventListener("blur", function(e){
-  const el = e.target.closest("[data-f]");
-  if(!el) return;
-  const i = parseInt(el.dataset.i), f = el.dataset.f;
-  const v = el.textContent.trim();
-  if(data[i][f] !== v){ data[i][f]=v; persist(); }
-}, true);
-
-document.getElementById("tbody").addEventListener("keydown", function(e){
-  if(e.key==="Enter" && e.target.closest("[data-f]")){ e.preventDefault(); e.target.blur(); }
-});
-
-/* ══ Status picker ══ */
-const spicker = document.getElementById("spicker");
-let pickerIdx = null;
-
-document.getElementById("tbody").addEventListener("click", function(e){
-  const td = e.target.closest(".td-status");
-  if(!td) return;
-  pickerIdx = parseInt(td.dataset.i);
-  const rect = td.getBoundingClientRect();
-  spicker.style.top  = (rect.bottom + 4) + "px";
-  spicker.style.left = Math.min(rect.left, window.innerWidth - 210) + "px";
-  spicker.classList.add("open");
-  // mark active
-  spicker.querySelectorAll(".sp-opt").forEach(o => o.classList.toggle("active", o.dataset.s === data[pickerIdx].status));
-  e.stopPropagation();
-});
-
-spicker.addEventListener("click", function(e){
-  const opt = e.target.closest("[data-s]");
-  if(!opt || pickerIdx===null) return;
-  data[pickerIdx].status = opt.dataset.s;
-  persist(); render();
-  spicker.classList.remove("open"); pickerIdx=null;
-});
-
-document.addEventListener("click", function(e){
-  if(!spicker.contains(e.target)){ spicker.classList.remove("open"); pickerIdx=null; }
-});
 
 /* ══ Check all ══ */
 document.getElementById("chk-all").addEventListener("change", function(){
